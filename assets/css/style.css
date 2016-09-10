@@ -1,0 +1,23 @@
+
+
+body {
+
+	background-image: url("../images/Cocktail.jpg");
+}	
+
+.jumbotron{
+	background-color:black;
+	color: white;
+}
+
+#questions{
+	color: white;
+	font-size: 150%;
+
+}
+
+#sub{
+	color: black;
+	padding: 10px;
+}
+

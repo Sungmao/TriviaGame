@@ -1,4 +1,5 @@
 var time = 60;
+var score = 0;
 
 var quizList = { 
 	'thisIsQuiz': [
@@ -10,6 +11,8 @@ var quizList = {
 		['Peach Schnapps, orange juice and cherry syrup', 'Vodka, Orange Juice and Peach Schnapps', 'Campagne, grapefruit juice and amaretto', 'Gin, lime juice and sugar'],
 		['Rum, Apple Juice and Cherries', 'Tequila, Lime Juice and Triple Sec', 'Ammarretto, Scotch and Milk', 'Gin, Lemon Juice, Sugar, Soda'],
 		['Bourbon and Grapefruit Juice', 'Whiskey and Scotch', 'Bourbon and Orange Juice', 'Budweiser and Bourbon']
+	],
+	'thisAnswer': ['Whiskey, bitters and vermouth', 'Vodka (or gin), vermouth, olive (or twist)', 'Peach Schnapps, orange juice and cherry syrup', 'Gin, Lemon Juice, Sugar, Soda', 'Bourbon and Orange Juice'
 	]
 };
 
@@ -29,24 +32,48 @@ for (var i=0; i < quizList.thisIsQuiz.length; i++) {
 		
 		var ans = "userClick"+i;
 		var opt = quizList.thisIsOption[i][j];
-		var chk = $('<input>').attr("type", "checkbox").attr("id", "ans").attr("value", quizList.thisIsOption[i][j]);
+		var chk = $('<input>').attr("type", "checkbox").attr("class", ans).attr("value", opt);
 		$("#yourOption"+i).append('<br>').append(chk).append(opt);
-
-		console.log(opt);
-		//var test = $('#ans').val();
-		//console.log(test);
 
 	};
 
 };
 
-var submit = $('<input>').attr("type", "submit").html("submit");
+var submit = $('<input>').attr("type", "submit").html("submit").attr("id","sub");
 $('#quiz').append(submit);
 
+$('#sub').on('click', function(){
+
+	for (var i = 0; i < quizList.thisIsQuiz.length; i++){
+
+		var userChoice = $('.userClick'+i+':checkbox:checked').val();
+		console.log(userChoice);
+
+		var theAns =quizList.thisAnswer[i];
+		console.log(theAns);
+
+		if (userChoice == theAns){
+		score++;
+		};
+		console.log(score);
+
+	 };
+
+	 var qN = quizList.thisIsQuiz.length;
+	 var quizNumber = $('<div>').html("Total Quiz Number:  " + qN);
+	 var correct = $('<div>').html("Correct Answer: " + score);
+
+	 clearInterval(counter);
+
+	 $('#remaining').empty();
+	 $('#remaining').html('<h2>All Done</h2>');
+
+	 $('#quiz').empty();
+	 $('#quiz').append(quizNumber).append(correct);
 
 
-//var test = $('#ans').val();
-//console.log(test);
+});
+
 
 $('input[type="checkbox"]').on('change', function() {
    $(this).siblings('input[type="checkbox"]').prop('checked', false);
